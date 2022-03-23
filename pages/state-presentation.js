@@ -1,36 +1,34 @@
 import Link from "next/link";
 import { FormSelect } from "@capgeminiuk/dcx-react-library";
 
-export default function StatePresentationSpecies({dataTransformed}) {
-  return (
-    <>
-      <h1>Select State and Presentation</h1>
-      <h2>
-        <Link href="/">
-          <a>Back to Selecting Species</a>
-        </Link>
-      </h2>
-      <FormSelect
-        label="State"
-        name="state"
-        id="state"
-        options={dataTransformed}
-        //onChang
-        nullOption="Select..."
-        //  value={selectedState}
-        // containerClassName="form-group"
-        //labelClassName="form-label form-label-bold"
-      />
-        <p>{dataTransformed.length}</p>
-    </>
-  );
+export default function StatePresentationSpecies({ dataTransformed }) {
+
+    var statePresNames = dataTransformed.map(v => `${v.state.description}(${v.state.code}), ${v.presentation.description} (${v.presentation.code})` );
+    return (
+        <>
+            <h1>Select State and Presentation</h1>
+            <h2>
+                <Link href="/">
+                    <a>Back to Selecting Species</a>
+                </Link>
+            </h2>
+            <FormSelect
+                label="State"
+                name="state"
+                id="state"
+                options={statePresNames}
+                nullOption="Select..."
+            />
+            <p>{dataTransformed.length}</p>
+        </>
+    );
 }
 
 export async function getServerSideProps(context) {
-  console.log("context");
-  console.log(context.query);
+    console.log("context");
+    console.log(context.query);
 
-  const species = context.query['species-choice'].replace(/.*\(|\).*/g, "");
+    const species = context.query['species-choice'].replace(/.*\(|\).*/g, "");
 
     if (!species) {
         context.res.redirect("http://localhost:3000/");
@@ -41,7 +39,6 @@ export async function getServerSideProps(context) {
     );
 
     const data = await statePres.json();
-    console.log('data :: ', data)
 
     const dataTransformed = data.reduce((preV, cV) => {
         console.log("cV", cV);
@@ -53,10 +50,5 @@ export async function getServerSideProps(context) {
         return [...preV, ...newObj];
     }, []);
 
-    console.log('dataTransformed :: ', dataTransformed)
-
-  return { props :  {dataTransformed} }
-
-
-
+    return { props: { dataTransformed } }
 }
