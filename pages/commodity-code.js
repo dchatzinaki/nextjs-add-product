@@ -29,11 +29,11 @@ export async function getServerSideProps(context) {
     console.log(context.query);
     const { faoCode, stateCode, presentationCode } = context.query;
 
-    const statePres = await fetch(
+    const commodityCodes = await fetch(
         `http://localhost:9000/v1/commodities/search?speciesCode=${faoCode}&state=${stateCode}&presentation=${presentationCode}`
     );
 
-    const data = await statePres.json();
+    const data = await commodityCodes.json();
 
  
 
