@@ -4,7 +4,7 @@ export default function Home({ speciesData }) {
   return (
     <div>
       <div>
-        <form action="http://localhost:3000/api/sp" method="post">
+        <form action="http://localhost:3000/state-presentation" method="get">
           <label htmlFor="species-choice-title">Common name or FAO code</label>
           <input list="species" id="species-choice" name="species-choice" />
           <datalist id="species">
