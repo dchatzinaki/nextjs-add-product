@@ -2,6 +2,8 @@ import Link from "next/link";
 import { FormSelect } from "@capgeminiuk/dcx-react-library";
 
 export default function StatePresentationSpecies({ dataTransformed }) {
+
+    var statePresNames = dataTransformed.map(v => `${v.state.description}(${v.state.code}), ${v.presentation.description} (${v.presentation.code})` );
     return (
         <>
             <h1>Select State and Presentation</h1>
@@ -14,12 +16,8 @@ export default function StatePresentationSpecies({ dataTransformed }) {
                 label="State"
                 name="state"
                 id="state"
-                options={dataTransformed}
-                //onChang
+                options={statePresNames}
                 nullOption="Select..."
-            //  value={selectedState}
-            // containerClassName="form-group"
-            //labelClassName="form-label form-label-bold"
             />
             <p>{dataTransformed.length}</p>
         </>
