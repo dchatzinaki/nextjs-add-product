@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from "next/link";
 import { FormSelect } from "@capgeminiuk/dcx-react-library";
 
 export default function StatePresentationSpecies() {
@@ -22,5 +22,10 @@ export default function StatePresentationSpecies() {
         //labelClassName="form-label form-label-bold"
       />
     </>
-  )
+  );
+}
+
+export async function getServerSideProps(context) {
+  console.log("context");
+  console.log(context);
 }
