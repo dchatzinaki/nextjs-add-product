@@ -2,8 +2,8 @@ import Link from 'next/link'
 import { FormSelect } from "@capgeminiuk/dcx-react-library";
 
 export default function CommodityCode({ data }) {
-
-    //     addToFavourites: false
+     // POST for fish/add
+    // addToFavourites: false
     // btn_submit: ""
     // commodity_code: "03028140"
     // commodity_code_description: "Fresh or chilled blue shark \"Prionace glauca\""
