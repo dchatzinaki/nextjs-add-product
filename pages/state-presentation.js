@@ -1,30 +1,7 @@
 import Link from "next/link";
 import { FormSelect } from "@capgeminiuk/dcx-react-library";
-import { useRouter } from 'next/router';
-import { useState } from 'react';
 
-export default function StatePresentationSpecies({ faoCode, dataTransformed, action = '/commodity-code' }) {
-    const preventDefault = f => e => {
-        e.preventDefault()
-        f(e)
-    }
-    const router = useRouter();
-    const [query, setQuery] = useState('');
-    const handleParam = setValue => e => setValue(e.target.value);
-
-    const handleSubmit = preventDefault(() => {
-        router.push({
-            pathname: action,
-            query: {
-                faoCode,
-                stateDescription: query.split(',')[0],
-                stateCode: query.split(',')[1],
-                presentationDescription: query.split(',')[2],
-                presentationCode: query.split(',')[3]
-            },
-        })
-    })
-
+export default function StatePresentationSpecies({ faoCode, species, scientificName, dataTransformed }) {
     var statePresNames = dataTransformed.map(v => ({
         label: `${v.state.description}(${v.state.code}), ${v.presentation.description} (${v.presentation.code})`,
         value: `${v.state.description},${v.state.code},${v.presentation.description},${v.presentation.code}`
@@ -38,30 +15,34 @@ export default function StatePresentationSpecies({ faoCode, dataTransformed, act
                 </Link>
             </h2>
 
-            <form onSubmit={handleSubmit}>
+            <form action="http://localhost:3000/commodity-code" method="get">
                 <FormSelect
                     label="State"
                     name="state"
                     id="state"
                     options={statePresNames}
                     nullOption="Select..."
-                    onChange={handleParam(setQuery)}
                 />
-                <button type="submit">Next</button>
+             <input name="species" hidden value={species}/>    
+             <input name="scientificName" hidden value={scientificName}/>    
+             <input name="faoCode" hidden value={faoCode}/> 
+             <button type="submit">Next</button>
             </form>
         </>
     );
 }
 
 export async function getServerSideProps(context) {
-    const species = context.query['species-choice'].replace(/.*\(|\).*/g, "");
+    const faoCode = context.query['species-choice'].split(',')[1];
+    const species = `${context.query['species-choice'].split(',')[0]} (${faoCode})`;
+    const scientificName = context.query['species-choice'].split(',')[2];
 
-    if (!species) {
+    if (!faoCode) {
         context.res.redirect("http://localhost:3000/");
     }
 
     const statePres = await fetch(
-        `http://localhost:9000/v1/speciesStateLookup?faoCode=${species}`
+        `http://localhost:9000/v1/speciesStateLookup?faoCode=${faoCode}`
     );
 
     const data = await statePres.json();
@@ -75,5 +56,5 @@ export async function getServerSideProps(context) {
         return [...preV, ...newObj];
     }, []);
 
-    return { props: { faoCode: species, dataTransformed } }
+    return { props: { faoCode, species, scientificName, dataTransformed } }
 }

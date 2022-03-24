@@ -9,7 +9,7 @@ export default function Home({ speciesData }) {
           <input list="species" id="species-choice" name="species-choice" />
           <datalist id="species">
             {speciesData.map((s) => (
-              <option key={s.faoCode} value={`${s.faoName}(${s.faoCode})`} />
+              <option key={s.faoCode} value={`${s.faoName},${s.faoCode},${s.scientificName}`} />
             ))}
           </datalist>
           <button type="submit">Next</button>
@@ -21,7 +21,7 @@ export default function Home({ speciesData }) {
 
 export async function getServerSideProps() {
   const res = await fetch(
-    "http://localhost:3001/reference/api/v1/species?uk=Y"
+    "http://localhost:9000/v1/species?uk=Y"
   );
   const speciesData = await res.json();
 
