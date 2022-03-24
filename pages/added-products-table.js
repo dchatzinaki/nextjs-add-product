@@ -107,7 +107,10 @@ export async function getServerSideProps(context) {
         method: 'POST'
     })
 
+
     const product = await fishAdd.json();
+    console.log('this is the product', product);
+
 
     return { props: { product } }
 }
