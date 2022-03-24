@@ -15,13 +15,19 @@ export default function StatePresentationSpecies({ faoCode, dataTransformed, act
     const handleSubmit = preventDefault(() => {
         router.push({
             pathname: action,
-            query: { faoCode, stateCode: query.split(',')[0], presentationCode: query.split(',')[1] },
+            query: {
+                faoCode,
+                stateDescription: query.split(',')[0],
+                stateCode: query.split(',')[1],
+                presentationDescription: query.split(',')[2],
+                presentationCode: query.split(',')[3]
+            },
         })
     })
 
     var statePresNames = dataTransformed.map(v => ({
         label: `${v.state.description}(${v.state.code}), ${v.presentation.description} (${v.presentation.code})`,
-        value: `${v.state.code},${v.presentation.code}`
+        value: `${v.state.description},${v.state.code},${v.presentation.description},${v.presentation.code}`
     }));
     return (
         <>
