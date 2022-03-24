@@ -1,33 +1,11 @@
 import Link from "next/link";
 import { FormSelect } from "@capgeminiuk/dcx-react-library";
-import { useRouter } from 'next/router';
-import { useState } from 'react';
 
 export default function StatePresentationSpecies({ faoCode, dataTransformed, action = '/commodity-code' }) {
-    const preventDefault = f => e => {
-        e.preventDefault()
-        f(e)
-    }
-    const router = useRouter();
-    const [query, setQuery] = useState('');
-    const handleParam = setValue => e => setValue(e.target.value);
-
-    const handleSubmit = preventDefault(() => {
-        router.push({
-            pathname: action,
-            query: {
-                faoCode,
-                stateDescription: query.split(',')[0],
-                stateCode: query.split(',')[1],
-                presentationDescription: query.split(',')[2],
-                presentationCode: query.split(',')[3]
-            },
-        })
-    })
-
+ 
     var statePresNames = dataTransformed.map(v => ({
         label: `${v.state.description}(${v.state.code}), ${v.presentation.description} (${v.presentation.code})`,
-        value: `${v.state.description},${v.state.code},${v.presentation.description},${v.presentation.code}`
+        value: `${faoCode},${v.state.description},${v.state.code},${v.presentation.description},${v.presentation.code}`
     }));
     return (
         <>
@@ -38,7 +16,7 @@ export default function StatePresentationSpecies({ faoCode, dataTransformed, act
                 </Link>
             </h2>
 
-            <form onSubmit={handleSubmit}>
+            <form action="http://localhost:3000/commodity-code" method="get">
                 <FormSelect
                     label="State"
                     name="state"

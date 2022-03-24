@@ -45,7 +45,10 @@ export default function CommodityCode({ data }) {
 export async function getServerSideProps(context) {
     console.log("context from state-presentation");
     console.log(context.query);
-    const { faoCode, stateCode, presentationCode } = context.query;
+
+    const faoCode = context.query['state'].split(',')[0];
+    const stateCode = context.query['state'].split(',')[2];
+    const presentationCode = context.query['state'].split(',')[4];
 
     const commodityCodes = await fetch(
         `http://localhost:9000/v1/commodities/search?speciesCode=${faoCode}&state=${stateCode}&presentation=${presentationCode}`
