@@ -8,9 +8,9 @@ export default function StatePresentationSpecies({ faoCode, dataTransformed, act
         e.preventDefault()
         f(e)
     }
-    const router = useRouter()
-    const [query, setQuery] = useState('')
-    const handleParam = setValue => e => setValue(e.target.value)
+    const router = useRouter();
+    const [query, setQuery] = useState('');
+    const handleParam = setValue => e => setValue(e.target.value);
 
     const handleSubmit = preventDefault(() => {
         router.push({
