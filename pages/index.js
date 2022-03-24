@@ -21,7 +21,7 @@ export default function Home({ speciesData }) {
 
 export async function getServerSideProps() {
   const res = await fetch(
-    "http://localhost:3001/reference/api/v1/species?uk=Y"
+    "http://localhost:9000/v1/species?uk=Y"
   );
   const speciesData = await res.json();
 

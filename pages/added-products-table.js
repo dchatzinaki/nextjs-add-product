@@ -94,7 +94,7 @@ export async function getServerSideProps(context) {
 
     console.log('what is specie', species, stateCode, presentationCode);
 
-    const fishAdd = await fetch('http://localhost:3001/orchestration/api/v1/fish/add', {
+    const fishAdd = await fetch('http://localhost:5500/v1/fish/add', {
         body: JSON.stringify({
             addToFavourites: false, btn_submit: "", commodity_code: commodityCode, 
             commodity_code_description: commodityCodeDescription, presentation: presentationCode, 
