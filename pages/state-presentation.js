@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FormSelect } from "@capgeminiuk/dcx-react-library";
 
 export default function StatePresentationSpecies({ faoCode, dataTransformed, action = '/commodity-code' }) {
- 
+
     var statePresNames = dataTransformed.map(v => ({
         label: `${v.state.description}(${v.state.code}), ${v.presentation.description} (${v.presentation.code})`,
         value: `${faoCode},${v.state.description},${v.state.code},${v.presentation.description},${v.presentation.code}`
@@ -23,7 +23,7 @@ export default function StatePresentationSpecies({ faoCode, dataTransformed, act
                     id="state"
                     options={statePresNames}
                     nullOption="Select..."
-                    onChange={handleParam(setQuery)}
+                    //onChange={handleParam(setQuery)}
                 />
                 <button type="submit">Next</button>
             </form>
