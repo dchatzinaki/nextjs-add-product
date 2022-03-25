@@ -4,7 +4,7 @@ import Link from "next/link";
 import {FormSelect} from "@capgeminiuk/dcx-react-library";
 
 export default function whatAreYouExporting({ speciesData, product }) {
-    console.log(speciesData)
+    // console.log(speciesData)
 
     return (
         <div>

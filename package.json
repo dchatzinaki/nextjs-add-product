@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@capgeminiuk/dcx-react-library": "0.4.0-beta-1",
+    "body-parser": "^1.19.2",
     "govuk-react": "^0.10.0",
     "next": "12.1.0",
     "react": "17.0.2",
